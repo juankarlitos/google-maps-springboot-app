@@ -34,18 +34,18 @@ Puedes colocar la clave directamente en la clase GeocodingService.java:
 private final String API_KEY = "TU_CLAVE_AQUI";
 Pero recomendamos usar variable de entorno para mayor seguridad (ver sección siguiente).
 
-Ejecuta la aplicación:
+### Ejecuta la aplicación:
 ./mvnw spring-boot:run
 
-Abre en tu navegador:
+###  Abre en tu navegador:
 http://localhost:9099/index.html
 
 
 ## Configuración de la clave API de Google Maps
 Para que el proyecto funcione correctamente, necesitas una API Key de Google Maps con estas APIs habilitadas:
 
-✅ Geocoding API
-✅ Maps JavaScript API
+✅ Geocoding API  
+✅ Maps JavaScript API  
 
 ## Cómo configurar la clave sin exponerla
 Este proyecto utiliza una variable de entorno llamada GOOGLE_MAPS_API_KEY para mantener la clave segura.
@@ -57,38 +57,35 @@ Este proyecto utiliza una variable de entorno llamada GOOGLE_MAPS_API_KEY para m
 export GOOGLE_MAPS_API_KEY=tu_clave_real
 
 ### En Windows (CMD):
-
 set GOOGLE_MAPS_API_KEY=tu_clave_real
-En Windows (PowerShell):
+
+### En Windows (PowerShell):
 
 $env:GOOGLE_MAPS_API_KEY="tu_clave_real"
 💡 Reemplaza tu_clave_real por la clave API que obtuviste desde Google Cloud Console.
 
-¿Dónde se usa esta variable?
-En el backend, en la clase GeocodingService:
+## ¿Dónde se usa esta variable?  
+### En el backend, en la clase GeocodingService: 
 
 private final String API_KEY = System.getenv("GOOGLE_MAPS_API_KEY");
 En el frontend (HTML), reemplaza la clave directamente en el script de Google Maps, o utiliza alguna estrategia para inyectarla desde el backend (en desarrollo puedes dejarla fija).
 
-Ejemplo
-Dirección usada en el ejemplo:
+### Ejemplo
+## Dirección usada en el ejemplo:
 
 Vicuña Mackenna 12500, La Florida, Santiago, Chile
-Resultado
-Mapa con marcador en la ubicación solicitada.
 
+### Resultado
+Mapa con marcador en la ubicación solicitada.
 Coordenadas obtenidas mediante la API de geocodificación.
 
-Cómo obtener tu clave API
-Para usar Google Maps debes:
+### Cómo obtener tu clave API  
+ ## Para usar Google Maps debes:  
 
-Crear un proyecto en Google Cloud Console.
-
-Habilitar la Geocoding API y la Maps JavaScript API.
-
-Obtener una API Key.
-
+Crear un proyecto en Google Cloud Console. 
+Habilitar la Geocoding API y la Maps JavaScript API. 
+Obtener una API Key. 
 Insertarla en el backend (GeocodingService.java) o configurarla como variable de entorno.
 
-Autor
+## Autor 
 Desarrollado por Juan Carlos Inostroza 👨‍💻
