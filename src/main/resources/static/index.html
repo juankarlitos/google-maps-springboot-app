@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Buscador de Direccion en Google Maps</title>
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        #searchForm {
+            margin-bottom: 10px;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 6px;
+        }
+        button {
+            padding: 6px 12px;
+        }
+    </style>
+</head>
+<body>
+<h3>Buscar dirección en Google Maps</h3>
+<form id="searchForm">
+    <input type="text" id="addressInput" placeholder="Escribe una direccion..." required />
+    <button type="submit">Buscar</button>
+</form>
+<div id="map"></div>
+<script>
+    let map;
+    let marker;
+    function initMap() {
+        // Inicializa el mapa centrado en Santiago, Chile (por defecto)
+        const defaultCoords = { lat: -33.4489, lng: -70.6693 };
+        map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 12,
+            center: defaultCoords,
+        });
+        marker = new google.maps.Marker({
+            position: defaultCoords,
+            map: map,
+            title: "Ubicación inicial",
+        });
+    }
+    // Función para buscar dirección y actualizar mapa
+    function buscarDireccion(direccion) {
+        fetch('/geocode?address=' + encodeURIComponent(direccion))
+            .then(response => response.json())
+            .then(data => {
+                const coords = { lat: data.lat || data.latitud, lng: data.lng || data.longitud };
+                if (!coords.lat || !coords.lng) {
+                    alert("No se encontraron coordenadas para esa dirección.");
+                    return;
+                }
+                map.setCenter(coords);
+                map.setZoom(16);
+
+                marker.setPosition(coords);
+                marker.setTitle(direccion);
+            })
+            .catch(error => {
+                console.error('Error al obtener coordenadas:', error);
+                alert('No se pudo cargar la ubicación');
+            });
+    }
+    // Evento submit del formulario
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Evita que recargue la página
+        const direccion = document.getElementById('addressInput').value.trim();
+        if (direccion.length > 0) {
+            buscarDireccion(direccion);
+        }
+    });
+</script>
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDW5E-CU-l65ywWp48pJ3I68yuUXlrJzX0&callback=initMap"
+        async defer>
+</script>
+</body>
+</html>
