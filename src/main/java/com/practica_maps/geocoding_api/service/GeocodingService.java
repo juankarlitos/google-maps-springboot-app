@@ -21,7 +21,8 @@ public class GeocodingService {
 
     // Cambio esto por mi API Key real
     // clave privada que entrega google  para acceder a sus servicios
-    private final String API_KEY = System.getenv("GOOGLE_MAPS_API_KEY");
+    //private final String API_KEY = System.getenv("GOOGLE_MAPS_API_KEY");
+        private final String API_KEY = "MYKEY";
 
     public GeocodingResponse getCoordinates(String address) throws JSONException {//devuelve una latitud y longitud
         //se construye la url completa para hacer la consulta HTTP a Google
